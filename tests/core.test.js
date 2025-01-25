@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, afterEach, beforeEach } from "vitest";
 import {
  getCoupons,
  calculateDiscount,
@@ -6,6 +6,7 @@ import {
  isPriceInRange,
  isValidUsername,
  canDrive,
+ Stack,
 } from "../src/core";
 
 describe("getCoupons", () => {
@@ -174,5 +175,61 @@ describe("canDrive", () => {
 
  it("Should return an error for invalid country code", () => {
   expect(canDrive(20, "EG")).toMatch(/invalid/i);
+ });
+});
+
+describe("Stack Class", () => {
+ let stack;
+
+ beforeEach(() => {
+  stack = new Stack();
+ });
+
+ it("should push items onto the stack", () => {
+  stack.push(1);
+  stack.push(2);
+  stack.push(3);
+  expect(stack.size()).toBe(3);
+ });
+
+ it("should pop the last item of the stack", () => {
+  stack.push(1);
+  const element = stack.pop();
+  expect(element).toBe(1);
+  expect(stack.isEmpty()).toBe(true);
+ });
+
+ it("should get the last item of the stack without remove it", () => {
+  stack.push(1);
+  const element = stack.peek();
+  expect(element).toBe(1);
+  expect(stack.size()).toBe(1);
+ });
+
+ it("should throw an error if the stack is empty", () => {
+  expect(() => stack.pop()).toThrow(/empty/i);
+  expect(() => stack.peek()).toThrow(/empty/i);
+ });
+
+ it("should return true if the stack is empty", () => {
+  expect(stack.isEmpty()).toBe(true);
+ });
+
+ it("should return false if the stack is not empty", () => {
+  stack.push(1);
+  expect(stack.isEmpty()).toBe(false);
+ });
+
+ it("Should return the size of the stack", () => {
+  stack.push(1);
+  stack.push(2);
+  expect(stack.size()).toBe(2);
+ });
+
+ it("Should clear the stack", () => {
+  stack.push(1);
+  stack.push(2);
+  stack.clear();
+  expect(stack.size()).toBe(0);
  });
 });
