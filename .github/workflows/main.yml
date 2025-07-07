@@ -1,0 +1,11 @@
+name: CI
+on: 
+  push: 
+    branches: 
+      - main
+jobs:
+  main: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print a Welcome Message
+        run: echo "Hello World! from our first Github Actions Workflow!"
