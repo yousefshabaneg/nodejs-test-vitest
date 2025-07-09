@@ -1,0 +1,17 @@
+name: Repo Dispatch
+
+on:
+  repository_dispatch:
+    types:
+      - incident_report
+
+jobs:
+  handle-incident-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print the event payload
+        run: |
+          echo "Event payload:"
+          echo "--------------------------------"
+          echo ${{ toJson(github.event.client_payload) }}
+          echo "--------------------------------"
